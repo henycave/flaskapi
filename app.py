@@ -28,6 +28,7 @@
 #     app.run(debug=True)
 
 
+from crypt import methods
 from optparse import Values
 import re
 from flask import Flask, request, redirect, url_for, flash, jsonify
@@ -42,6 +43,11 @@ vectorfile = 'models/vector.pkl'
 classifierfile = 'models/classifier.pkl'
 model = p.load(open(classifierfile, 'rb'))
 vector = p.load(open(vectorfile, 'rb'))
+
+@app.route("/", methods=["GET"])
+def index():
+    return "<h1> Hello worlds </h1>"
+
 @app.route('/predict/', methods=['POST'])
 
 def predict():
@@ -59,5 +65,5 @@ def predict():
     return str(res)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
 
